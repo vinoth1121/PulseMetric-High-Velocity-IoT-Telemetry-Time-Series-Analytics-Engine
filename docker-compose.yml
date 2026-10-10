@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+  mongo:
+    image: mongo:7.0
+    container_name: pulsemetric-mongo
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_DATABASE: pulsemetric
+    volumes:
+      - mongo_data:/data/db
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: pulsemetric-app
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      PORT: 3000
+      NODE_ENV: production
+      MONGODB_URI: mongodb://mongo:27017/pulsemetric
+      API_KEY: pm_live_secret_key_9f8e7d6c
+      HOT_LANE_TOLERANCE_MINUTES: 5
+      SIMULATOR_ENABLED: "true"
+      SIMULATOR_RATE_MS: 3000
+      SIMULATOR_DEVICES: 10
+    depends_on:
+      mongo:
+        condition: service_healthy
+
+volumes:
+  mongo_data:
