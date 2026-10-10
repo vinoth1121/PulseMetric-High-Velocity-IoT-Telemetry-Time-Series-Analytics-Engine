@@ -1,0 +1,210 @@
+:root {
+  --bg-paper: #F3EFE4;
+  --bg-card: #FAF8F2;
+  --bg-elevated: #EAE5D8;
+  --border-color: #D6D0C0;
+  --border-strong: #A8A090;
+  --grid-line: rgba(0, 0, 0, 0.07);
+  --grid-line-strong: rgba(0, 0, 0, 0.14);
+  --text-main: #181716;
+  --text-muted: #5C5852;
+  --text-faint: #8E8980;
+  --trace-color: #121210;
+  --trace-ema: #2B6CB0;
+  --alarm-red: #D92525;
+  --alarm-bg: #FEE2E2;
+  --synthetic-dash: #9B7A38;
+  --band-fill: rgba(43, 108, 176, 0.08);
+  --font-mono: 'IBM Plex Mono', monospace, -apple-system, BlinkMacSystemFont;
+  --font-heading: 'Barlow Condensed', sans-serif;
+}
+
+[data-theme="dark"] {
+  --bg-paper: #121210;
+  --bg-card: #181816;
+  --bg-elevated: #222220;
+  --border-color: #333330;
+  --border-strong: #55554E;
+  --grid-line: rgba(255, 176, 0, 0.06);
+  --grid-line-strong: rgba(255, 176, 0, 0.12);
+  --text-main: #F4F2EC;
+  --text-muted: #A3A096;
+  --text-faint: #6E6B62;
+  --trace-color: #FFB000;
+  --trace-ema: #38BDF8;
+  --alarm-red: #FF4D4D;
+  --alarm-bg: #450A0A;
+  --synthetic-dash: #D97706;
+  --band-fill: rgba(56, 189, 248, 0.1);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--bg-paper);
+  color: var(--text-main);
+  font-family: var(--font-mono);
+  font-size: 14px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+}
+
+/* Millimeter Grid Texture */
+.millimeter-grid {
+  background-image: 
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px),
+    linear-gradient(var(--grid-line-strong) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line-strong) 1px, transparent 1px);
+  background-size: 8px 8px, 8px 8px, 40px 40px, 40px 40px;
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 700;
+}
+
+h1 { font-size: 2.2rem; }
+h2 { font-size: 1.6rem; }
+h3 { font-size: 1.25rem; }
+
+/* Accessible Focus States */
+a:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible {
+  outline: 2px solid var(--alarm-red);
+  outline-offset: 2px;
+}
+
+/* Paper Strip Recorder Aesthetic */
+.paper-strip {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  position: relative;
+}
+
+.paper-perforation {
+  border-top: 2px dashed var(--border-strong);
+}
+
+.recorder-header {
+  border-bottom: 1px solid var(--border-color);
+  padding: 8px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--bg-elevated);
+}
+
+/* Stamped Stamp Badge */
+.stamp-badge {
+  font-family: var(--font-heading);
+  font-size: 0.9rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border: 2px solid currentColor;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.stamp-danger {
+  color: var(--alarm-red);
+  background-color: var(--alarm-bg);
+}
+
+.stamp-neutral {
+  color: var(--text-main);
+  background-color: var(--bg-elevated);
+}
+
+.stamp-active {
+  color: #15803D;
+  background-color: #DCFCE7;
+}
+
+[data-theme="dark"] .stamp-active {
+  color: #4ADE80;
+  background-color: #052E16;
+}
+
+/* Buttons */
+.btn {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 6px 14px;
+  border: 1px solid var(--border-strong);
+  background-color: var(--bg-card);
+  color: var(--text-main);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.btn:hover {
+  background-color: var(--bg-elevated);
+  border-color: var(--text-main);
+}
+
+.btn-primary {
+  background-color: var(--trace-color);
+  color: var(--bg-paper);
+  border-color: var(--trace-color);
+}
+
+.btn-primary:hover {
+  opacity: 0.9;
+}
+
+.btn-danger {
+  background-color: var(--alarm-red);
+  color: #FFFFFF;
+  border-color: var(--alarm-red);
+}
+
+/* uPlot Chart Overrides */
+.uplot {
+  font-family: var(--font-mono) !important;
+}
+
+.u-legend {
+  font-family: var(--font-mono) !important;
+  font-size: 12px !important;
+  color: var(--text-main) !important;
+}
+
+/* Tables */
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+}
+
+.data-table th, .data-table td {
+  padding: 8px 12px;
+  border: 1px solid var(--border-color);
+  text-align: left;
+}
+
+.data-table th {
+  background-color: var(--bg-elevated);
+  font-family: var(--font-heading);
+  letter-spacing: 0.5px;
+  font-size: 0.95rem;
+}
+
+.data-table tr:hover {
+  background-color: var(--bg-elevated);
+}
