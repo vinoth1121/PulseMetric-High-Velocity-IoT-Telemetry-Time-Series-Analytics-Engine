@@ -1,0 +1,45 @@
+{
+  "queryFilter": {
+    "deviceId": "dev-010",
+    "metric": "temperature_c",
+    "window": "last 4 hours"
+  },
+  "datasetSize": 50000,
+  "plans": {
+    "unindexed": {
+      "label": "Regular Collection (No Index)",
+      "executionSuccess": true,
+      "nReturned": 0,
+      "executionTimeMillis": 26,
+      "totalKeysExamined": 0,
+      "totalDocsExamined": 50000,
+      "stages": [
+        "COLLSCAN"
+      ],
+      "isCoveredQuery": false
+    },
+    "compoundIndex": {
+      "label": "Regular Collection (Compound Index)",
+      "executionSuccess": true,
+      "nReturned": 0,
+      "executionTimeMillis": 2,
+      "totalKeysExamined": 0,
+      "totalDocsExamined": 0,
+      "stages": [
+        "IXSCAN",
+        "FETCH"
+      ],
+      "isCoveredQuery": false
+    },
+    "timeSeries": {
+      "label": "MongoDB Native Time-Series Collection",
+      "executionSuccess": true,
+      "nReturned": 0,
+      "executionTimeMillis": 0,
+      "totalKeysExamined": 0,
+      "totalDocsExamined": 0,
+      "stages": [],
+      "isCoveredQuery": false
+    }
+  }
+}

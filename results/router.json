@@ -1,0 +1,24 @@
+{
+  "testDescription": "1-Year Historical Query Range (365 days)",
+  "deviceId": "dev-bench-router",
+  "metric": "temperature_c",
+  "rawScan": {
+    "collection": "bench_router_raw_1y",
+    "totalDocumentsInCollection": 35041,
+    "docsExamined": 35041,
+    "pointsReturned": 35041,
+    "latencyMs": 294,
+    "executionStage": "FETCH"
+  },
+  "smartRouter": {
+    "resolvedTier": "STITCHED_T2_T3",
+    "docsExamined": 6601,
+    "pointsReturned": 6601,
+    "latencyMs": 1475,
+    "serverReportedMs": 1475
+  },
+  "comparison": {
+    "docsScannedReductionRatio": 5.3,
+    "latencySpeedupMultiplier": 0.2
+  }
+}

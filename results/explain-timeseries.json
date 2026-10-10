@@ -1,0 +1,268 @@
+{
+  "explainVersion": "1",
+  "stages": [
+    {
+      "$cursor": {
+        "queryPlanner": {
+          "namespace": "pulsemetric.system.buckets.bench_plan_timeseries",
+          "indexFilterSet": false,
+          "parsedQuery": {
+            "$and": [
+              {
+                "meta.deviceId": {
+                  "$eq": "dev-010"
+                }
+              },
+              {
+                "meta.metric": {
+                  "$eq": "temperature_c"
+                }
+              },
+              {
+                "_id": {
+                  "$lte": "6aca2eeeffffffffffffffff"
+                }
+              },
+              {
+                "_id": {
+                  "$gte": "6ac9e89d0000000000000000"
+                }
+              },
+              {
+                "control.max.ts": {
+                  "$_internalExprGte": "2026-10-10T08:26:21.961Z"
+                }
+              },
+              {
+                "control.min.ts": {
+                  "$_internalExprGte": "2026-10-10T07:26:21.961Z"
+                }
+              },
+              {
+                "control.max.ts": {
+                  "$_internalExprLte": "2026-10-10T13:26:21.961Z"
+                }
+              },
+              {
+                "control.min.ts": {
+                  "$_internalExprLte": "2026-10-10T12:26:21.961Z"
+                }
+              }
+            ]
+          },
+          "queryHash": "856A76F3",
+          "planCacheKey": "F13CEFB6",
+          "optimizationTimeMillis": 0,
+          "maxIndexedOrSolutionsReached": false,
+          "maxIndexedAndSolutionsReached": false,
+          "maxScansToExplodeReached": false,
+          "winningPlan": {
+            "stage": "CLUSTERED_IXSCAN",
+            "filter": {
+              "$and": [
+                {
+                  "meta.deviceId": {
+                    "$eq": "dev-010"
+                  }
+                },
+                {
+                  "meta.metric": {
+                    "$eq": "temperature_c"
+                  }
+                },
+                {
+                  "_id": {
+                    "$lte": "6aca2eeeffffffffffffffff"
+                  }
+                },
+                {
+                  "_id": {
+                    "$gte": "6ac9e89d0000000000000000"
+                  }
+                },
+                {
+                  "control.max.ts": {
+                    "$_internalExprGte": "2026-10-10T08:26:21.961Z"
+                  }
+                },
+                {
+                  "control.min.ts": {
+                    "$_internalExprGte": "2026-10-10T07:26:21.961Z"
+                  }
+                },
+                {
+                  "control.max.ts": {
+                    "$_internalExprLte": "2026-10-10T13:26:21.961Z"
+                  }
+                },
+                {
+                  "control.min.ts": {
+                    "$_internalExprLte": "2026-10-10T12:26:21.961Z"
+                  }
+                }
+              ]
+            },
+            "direction": "forward",
+            "minRecord": "6ac9e89d0000000000000000",
+            "maxRecord": "6aca2eeeffffffffffffffff"
+          },
+          "rejectedPlans": []
+        },
+        "executionStats": {
+          "executionSuccess": true,
+          "nReturned": 0,
+          "executionTimeMillis": 0,
+          "totalKeysExamined": 0,
+          "totalDocsExamined": 81,
+          "executionStages": {
+            "stage": "CLUSTERED_IXSCAN",
+            "filter": {
+              "$and": [
+                {
+                  "meta.deviceId": {
+                    "$eq": "dev-010"
+                  }
+                },
+                {
+                  "meta.metric": {
+                    "$eq": "temperature_c"
+                  }
+                },
+                {
+                  "_id": {
+                    "$lte": "6aca2eeeffffffffffffffff"
+                  }
+                },
+                {
+                  "_id": {
+                    "$gte": "6ac9e89d0000000000000000"
+                  }
+                },
+                {
+                  "control.max.ts": {
+                    "$_internalExprGte": "2026-10-10T08:26:21.961Z"
+                  }
+                },
+                {
+                  "control.min.ts": {
+                    "$_internalExprGte": "2026-10-10T07:26:21.961Z"
+                  }
+                },
+                {
+                  "control.max.ts": {
+                    "$_internalExprLte": "2026-10-10T13:26:21.961Z"
+                  }
+                },
+                {
+                  "control.min.ts": {
+                    "$_internalExprLte": "2026-10-10T12:26:21.961Z"
+                  }
+                }
+              ]
+            },
+            "nReturned": 0,
+            "executionTimeMillisEstimate": 0,
+            "works": 82,
+            "advanced": 0,
+            "needTime": 81,
+            "needYield": 0,
+            "saveState": 1,
+            "restoreState": 1,
+            "isEOF": 1,
+            "direction": "forward",
+            "minRecord": "6ac9e89d0000000000000000",
+            "maxRecord": "6aca2eeeffffffffffffffff",
+            "docsExamined": 81
+          }
+        }
+      },
+      "nReturned": 0,
+      "executionTimeMillisEstimate": 0
+    },
+    {
+      "$_internalUnpackBucket": {
+        "exclude": [],
+        "timeField": "ts",
+        "metaField": "meta",
+        "bucketMaxSpanSeconds": 3600,
+        "assumeNoMixedSchemaData": true,
+        "wholeBucketFilter": {
+          "$and": [
+            {
+              "control.min.ts": {
+                "$gte": "2026-10-10T08:26:21.961Z"
+              }
+            },
+            {
+              "control.max.ts": {
+                "$lte": "2026-10-10T12:26:21.961Z"
+              }
+            }
+          ]
+        },
+        "eventFilter": {
+          "$and": [
+            {
+              "ts": {
+                "$gte": "2026-10-10T08:26:21.961Z"
+              }
+            },
+            {
+              "ts": {
+                "$lte": "2026-10-10T12:26:21.961Z"
+              }
+            }
+          ]
+        }
+      },
+      "nReturned": 0,
+      "executionTimeMillisEstimate": 0
+    }
+  ],
+  "serverInfo": {
+    "host": "56bfc308ad97",
+    "port": 27017,
+    "version": "7.0.43",
+    "gitVersion": "ef5a7d3480b59feae13d564376129fc4ceee6177"
+  },
+  "serverParameters": {
+    "internalQueryFacetBufferSizeBytes": 104857600,
+    "internalQueryFacetMaxOutputDocSizeBytes": 104857600,
+    "internalLookupStageIntermediateDocumentMaxSizeBytes": 104857600,
+    "internalDocumentSourceGroupMaxMemoryBytes": 104857600,
+    "internalQueryMaxBlockingSortMemoryUsageBytes": 104857600,
+    "internalQueryProhibitBlockingMergeOnMongoS": 0,
+    "internalQueryMaxAddToSetBytes": 104857600,
+    "internalDocumentSourceSetWindowFieldsMaxMemoryBytes": 104857600,
+    "internalQueryFrameworkControl": "forceClassicEngine"
+  },
+  "command": {
+    "aggregate": "system.buckets.bench_plan_timeseries",
+    "pipeline": [
+      {
+        "$_internalUnpackBucket": {
+          "timeField": "ts",
+          "metaField": "meta",
+          "bucketMaxSpanSeconds": 3600,
+          "assumeNoMixedSchemaData": true,
+          "usesExtendedRange": false
+        }
+      },
+      {
+        "$match": {
+          "meta.deviceId": "dev-010",
+          "meta.metric": "temperature_c",
+          "ts": {
+            "$gte": "2026-10-10T08:26:21.961Z",
+            "$lte": "2026-10-10T12:26:21.961Z"
+          }
+        }
+      }
+    ],
+    "cursor": {},
+    "collation": {
+      "locale": "simple"
+    }
+  },
+  "ok": 1
+}

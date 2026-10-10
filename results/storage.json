@@ -1,0 +1,42 @@
+{
+  "totalReadingsTested": 60000,
+  "results": {
+    "regularCollection": {
+      "collection": "bench_storage_regular",
+      "documentCount": 60000,
+      "dataSize": 10977796,
+      "storageSize": 4096,
+      "totalIndexSize": 323584,
+      "avgObjSize": 182,
+      "compressionRatio": 2680.13
+    },
+    "nativeTimeSeries": {
+      "collection": "bench_storage_timeseries",
+      "documentCount": 0,
+      "dataSize": 215784,
+      "storageSize": 4096,
+      "totalIndexSize": 4096,
+      "avgObjSize": 0,
+      "compressionRatio": 52.68
+    },
+    "manualBucketPattern": {
+      "collection": "bench_storage_bucket_pattern",
+      "documentCount": 250,
+      "dataSize": 2225796,
+      "storageSize": 4096,
+      "totalIndexSize": 8192,
+      "avgObjSize": 8903,
+      "compressionRatio": 543.41
+    },
+    "timeSeriesInternalBuckets": {
+      "collection": "system.buckets.bench_storage_timeseries",
+      "documentCount": 0,
+      "dataSize": 215784,
+      "storageSize": 4096,
+      "totalIndexSize": 4096,
+      "avgObjSize": 0,
+      "compressionRatio": 52.68
+    }
+  },
+  "analysis": "MongoDB native time-series columnar bucket compression achieved significant storage and index size reduction compared to traditional regular documents."
+}

@@ -1,0 +1,167 @@
+{
+  "explainVersion": "1",
+  "queryPlanner": {
+    "namespace": "pulsemetric.bench_plan_regular_indexed",
+    "indexFilterSet": false,
+    "parsedQuery": {
+      "$and": [
+        {
+          "meta.deviceId": {
+            "$eq": "dev-010"
+          }
+        },
+        {
+          "meta.metric": {
+            "$eq": "temperature_c"
+          }
+        },
+        {
+          "ts": {
+            "$lte": "2026-10-10T12:26:21.961Z"
+          }
+        },
+        {
+          "ts": {
+            "$gte": "2026-10-10T08:26:21.961Z"
+          }
+        }
+      ]
+    },
+    "queryHash": "548BFAD5",
+    "planCacheKey": "A20F6D36",
+    "optimizationTimeMillis": 0,
+    "maxIndexedOrSolutionsReached": false,
+    "maxIndexedAndSolutionsReached": false,
+    "maxScansToExplodeReached": false,
+    "winningPlan": {
+      "stage": "FETCH",
+      "inputStage": {
+        "stage": "IXSCAN",
+        "keyPattern": {
+          "meta.deviceId": 1,
+          "meta.metric": 1,
+          "ts": 1
+        },
+        "indexName": "idx_device_metric_ts",
+        "isMultiKey": false,
+        "multiKeyPaths": {
+          "meta.deviceId": [],
+          "meta.metric": [],
+          "ts": []
+        },
+        "isUnique": false,
+        "isSparse": false,
+        "isPartial": false,
+        "indexVersion": 2,
+        "direction": "forward",
+        "indexBounds": {
+          "meta.deviceId": [
+            "[\"dev-010\", \"dev-010\"]"
+          ],
+          "meta.metric": [
+            "[\"temperature_c\", \"temperature_c\"]"
+          ],
+          "ts": [
+            "[new Date(1791620781961), new Date(1791635181961)]"
+          ]
+        }
+      }
+    },
+    "rejectedPlans": []
+  },
+  "executionStats": {
+    "executionSuccess": true,
+    "nReturned": 0,
+    "executionTimeMillis": 2,
+    "totalKeysExamined": 0,
+    "totalDocsExamined": 0,
+    "executionStages": {
+      "stage": "FETCH",
+      "nReturned": 0,
+      "executionTimeMillisEstimate": 0,
+      "works": 1,
+      "advanced": 0,
+      "needTime": 0,
+      "needYield": 0,
+      "saveState": 0,
+      "restoreState": 0,
+      "isEOF": 1,
+      "docsExamined": 0,
+      "alreadyHasObj": 0,
+      "inputStage": {
+        "stage": "IXSCAN",
+        "nReturned": 0,
+        "executionTimeMillisEstimate": 0,
+        "works": 1,
+        "advanced": 0,
+        "needTime": 0,
+        "needYield": 0,
+        "saveState": 0,
+        "restoreState": 0,
+        "isEOF": 1,
+        "keyPattern": {
+          "meta.deviceId": 1,
+          "meta.metric": 1,
+          "ts": 1
+        },
+        "indexName": "idx_device_metric_ts",
+        "isMultiKey": false,
+        "multiKeyPaths": {
+          "meta.deviceId": [],
+          "meta.metric": [],
+          "ts": []
+        },
+        "isUnique": false,
+        "isSparse": false,
+        "isPartial": false,
+        "indexVersion": 2,
+        "direction": "forward",
+        "indexBounds": {
+          "meta.deviceId": [
+            "[\"dev-010\", \"dev-010\"]"
+          ],
+          "meta.metric": [
+            "[\"temperature_c\", \"temperature_c\"]"
+          ],
+          "ts": [
+            "[new Date(1791620781961), new Date(1791635181961)]"
+          ]
+        },
+        "keysExamined": 0,
+        "seeks": 1,
+        "dupsTested": 0,
+        "dupsDropped": 0
+      }
+    }
+  },
+  "command": {
+    "find": "bench_plan_regular_indexed",
+    "filter": {
+      "meta.deviceId": "dev-010",
+      "meta.metric": "temperature_c",
+      "ts": {
+        "$gte": "2026-10-10T08:26:21.961Z",
+        "$lte": "2026-10-10T12:26:21.961Z"
+      }
+    },
+    "$db": "pulsemetric"
+  },
+  "serverInfo": {
+    "host": "56bfc308ad97",
+    "port": 27017,
+    "version": "7.0.43",
+    "gitVersion": "ef5a7d3480b59feae13d564376129fc4ceee6177"
+  },
+  "serverParameters": {
+    "internalQueryFacetBufferSizeBytes": 104857600,
+    "internalQueryFacetMaxOutputDocSizeBytes": 104857600,
+    "internalLookupStageIntermediateDocumentMaxSizeBytes": 104857600,
+    "internalDocumentSourceGroupMaxMemoryBytes": 104857600,
+    "internalQueryMaxBlockingSortMemoryUsageBytes": 104857600,
+    "internalQueryProhibitBlockingMergeOnMongoS": 0,
+    "internalQueryMaxAddToSetBytes": 104857600,
+    "internalDocumentSourceSetWindowFieldsMaxMemoryBytes": 104857600,
+    "internalQueryFrameworkControl": "forceClassicEngine"
+  },
+  "ok": 1
+}

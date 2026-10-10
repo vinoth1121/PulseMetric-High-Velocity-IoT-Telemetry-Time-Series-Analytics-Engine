@@ -1,0 +1,141 @@
+{
+  "explainVersion": "1",
+  "queryPlanner": {
+    "namespace": "pulsemetric.bench_plan_regular_noindex",
+    "indexFilterSet": false,
+    "parsedQuery": {
+      "$and": [
+        {
+          "meta.deviceId": {
+            "$eq": "dev-010"
+          }
+        },
+        {
+          "meta.metric": {
+            "$eq": "temperature_c"
+          }
+        },
+        {
+          "ts": {
+            "$lte": "2026-10-10T12:26:21.961Z"
+          }
+        },
+        {
+          "ts": {
+            "$gte": "2026-10-10T08:26:21.961Z"
+          }
+        }
+      ]
+    },
+    "queryHash": "548BFAD5",
+    "planCacheKey": "548BFAD5",
+    "optimizationTimeMillis": 0,
+    "maxIndexedOrSolutionsReached": false,
+    "maxIndexedAndSolutionsReached": false,
+    "maxScansToExplodeReached": false,
+    "winningPlan": {
+      "stage": "COLLSCAN",
+      "filter": {
+        "$and": [
+          {
+            "meta.deviceId": {
+              "$eq": "dev-010"
+            }
+          },
+          {
+            "meta.metric": {
+              "$eq": "temperature_c"
+            }
+          },
+          {
+            "ts": {
+              "$lte": "2026-10-10T12:26:21.961Z"
+            }
+          },
+          {
+            "ts": {
+              "$gte": "2026-10-10T08:26:21.961Z"
+            }
+          }
+        ]
+      },
+      "direction": "forward"
+    },
+    "rejectedPlans": []
+  },
+  "executionStats": {
+    "executionSuccess": true,
+    "nReturned": 0,
+    "executionTimeMillis": 26,
+    "totalKeysExamined": 0,
+    "totalDocsExamined": 50000,
+    "executionStages": {
+      "stage": "COLLSCAN",
+      "filter": {
+        "$and": [
+          {
+            "meta.deviceId": {
+              "$eq": "dev-010"
+            }
+          },
+          {
+            "meta.metric": {
+              "$eq": "temperature_c"
+            }
+          },
+          {
+            "ts": {
+              "$lte": "2026-10-10T12:26:21.961Z"
+            }
+          },
+          {
+            "ts": {
+              "$gte": "2026-10-10T08:26:21.961Z"
+            }
+          }
+        ]
+      },
+      "nReturned": 0,
+      "executionTimeMillisEstimate": 1,
+      "works": 50001,
+      "advanced": 0,
+      "needTime": 50000,
+      "needYield": 0,
+      "saveState": 50,
+      "restoreState": 50,
+      "isEOF": 1,
+      "direction": "forward",
+      "docsExamined": 50000
+    }
+  },
+  "command": {
+    "find": "bench_plan_regular_noindex",
+    "filter": {
+      "meta.deviceId": "dev-010",
+      "meta.metric": "temperature_c",
+      "ts": {
+        "$gte": "2026-10-10T08:26:21.961Z",
+        "$lte": "2026-10-10T12:26:21.961Z"
+      }
+    },
+    "$db": "pulsemetric"
+  },
+  "serverInfo": {
+    "host": "56bfc308ad97",
+    "port": 27017,
+    "version": "7.0.43",
+    "gitVersion": "ef5a7d3480b59feae13d564376129fc4ceee6177"
+  },
+  "serverParameters": {
+    "internalQueryFacetBufferSizeBytes": 104857600,
+    "internalQueryFacetMaxOutputDocSizeBytes": 104857600,
+    "internalLookupStageIntermediateDocumentMaxSizeBytes": 104857600,
+    "internalDocumentSourceGroupMaxMemoryBytes": 104857600,
+    "internalQueryMaxBlockingSortMemoryUsageBytes": 104857600,
+    "internalQueryProhibitBlockingMergeOnMongoS": 0,
+    "internalQueryMaxAddToSetBytes": 104857600,
+    "internalDocumentSourceSetWindowFieldsMaxMemoryBytes": 104857600,
+    "internalQueryFrameworkControl": "forceClassicEngine"
+  },
+  "ok": 1
+}

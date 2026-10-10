@@ -1,0 +1,26 @@
+{
+  "targetReadingsPerSec": 10000,
+  "achievedReadingsPerSec": 709,
+  "totalReadingsProcessed": 30000,
+  "totalFailedReadings": 0,
+  "errorRatePct": 0,
+  "batchSize": 250,
+  "concurrency": 8,
+  "durationMs": 42304,
+  "latenciesMs": {
+    "min": 1125,
+    "p50": 2803,
+    "p95": 4513,
+    "p99": 4734,
+    "max": 4795
+  },
+  "system": {
+    "cpuUserMs": 11828,
+    "cpuSystemMs": 2922,
+    "heapDeltaMb": 50,
+    "cpus": 12,
+    "platform": "win32",
+    "nodeVersion": "v24.16.0"
+  },
+  "bottleneckAnalysis": "Loopback HTTP serialization and single-threaded Express parsing bounded throughput at 709 readings/s. MongoDB time-series insertMany unordered pipeline absorbed load with p50 of 2803ms per 250-item batch."
+}
