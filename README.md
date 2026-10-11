@@ -2,13 +2,13 @@
 
 > **Dual-lane time-series ingestion, in-database anomaly detection, and multi-tier downsampling on MongoDB 7.0+**
 
-![PulseMetric Strip-Chart Recorder Demo](demo.svg)
+![PulseMetric demo — live strip chart, router badge, late-data lab, engine room](docs/img/demo.gif)
 
 ---
 
 ## Live Demo & Public Deployment
 
-- **Live URL**: [https://pulsemetric.onrender.com](https://pulsemetric.onrender.com) *(or local instance at `http://localhost:3000`)*
+- **Live URL**: _deploying — updated after the Render deploy (see Deployment)_ *(local instance: http://localhost:3000)*
 - **Interactive Pages**:
   - **Live Strip-Chart**: Real-time canvas telemetry recorder with auto-reconnecting Server-Sent Events (SSE) anomaly ticker.
   - **Historical Explorer**: Range selection with Smart Router tier resolution badges (`T1_RAW`, `T2_ROLLUP_5M`, `T3_ROLLUP_1H`, `STITCHED`), query execution stats, and gap-filling modes (`LOCF` vs `Linear`).
@@ -31,8 +31,8 @@ PulseMetric eliminates time-series bucket fragmentation caused by out-of-order I
 
 ```bash
 # 1. Clone repository
-git clone https://github.com/vinoth-n/pulsemetric.git
-cd pulsemetric
+git clone https://github.com/vinoth1121/PulseMetric-High-Velocity-IoT-Telemetry-Time-Series-Analytics-Engine.git
+cd PulseMetric-High-Velocity-IoT-Telemetry-Time-Series-Analytics-Engine
 
 # 2. Install dependencies & build
 npm install
@@ -42,8 +42,8 @@ npm run build
 docker compose up -d
 
 # 4. Initialize idempotent collections and seed 24-hour fleet history
-npm run db:init
-npm run db:seed
+npm run init-db
+npm run seed-history
 
 # 5. Open http://localhost:3000 in your browser
 ```
@@ -149,11 +149,11 @@ Query: 4-hour range query on 50,000 documents (`dev-010`, `temperature_c`).
 | **Native Time-Series** | Internal Bucket Scan | 0 | 0 | **0 ms** | No |
 
 ### 3. Storage Footprint & Compression (60,000 Readings)
-| Storage Architecture | Document Count | Uncompressed Size | On-Disk Storage Size | Space Reduction |
+| Storage Architecture | Document Count | Uncompressed Size | On-Disk Storage Size | Compression Ratio |
 | :--- | :--- | :--- | :--- | :--- |
-| **Regular Documents** | 60,000 | 10.47 MB | 0.00 MB (in WiredTiger cache) | Baseline |
-| **Manual Bucket Pattern** | 250 | 2.12 MB | 0.00 MB | 4.9x logical reduction |
-| **MongoDB Time-Series** | 0 (bucketed) | 0.21 MB | **0.00 MB** | **49.8x logical reduction** |
+| **Regular Documents** | 60,000 | 10.47 MB | 0.00 MB (in WiredTiger cache) | 2680.13x |
+| **Manual Bucket Pattern** | 250 | 2.12 MB | 0.00 MB | 543.41x |
+| **MongoDB Time-Series** | 0 (bucketed) | 0.21 MB | **0.00 MB** | **52.68x** |
 
 ### 4. Smart Router vs. Raw Scan (1-Year Range)
 | Architecture | Docs Examined | Query Time | Points Returned |
@@ -202,8 +202,21 @@ npm run bench:router         # Smart router downsampling docs scan comparison
 npm run bench:late           # Dual-lane segregation vs naive late data test
 
 # Re-generate BENCHMARKS.md from executed JSON results
-npm run bench:generate-doc
+npm run generate-benchmarks
 ```
+
+## Deployment
+
+- **One-click (Render Blueprint)**: The repo root contains a `render.yaml` Render Blueprint — in Render choose **New → Blueprint**, select this repo, and set:
+  - `MONGODB_URI` — your Atlas free-tier SRV string
+  - `API_KEY` — choose any secret ingest key
+- **Environment variables the server actually reads**: `MONGODB_URI`, `API_KEY`, `SIMULATOR_ENABLED=true` (note: `ENABLE_SIMULATOR` is NOT a real variable), plus the optional `SIMULATOR_RATE_MS`, `SIMULATOR_DEVICES`, `CORS_ORIGIN`, `HOT_LANE_TOLERANCE_MINUTES`, `PORT`.
+- **Post-deploy**: Run once from your machine against the same Atlas URI — the server does not auto-create the time-series collections on boot:
+  ```bash
+  npm run init-db
+  npm run seed-history
+  ```
+- **Verify**: `node scripts/verify-live.mjs https://<your-app>.onrender.com`
 
 ---
 
@@ -212,12 +225,3 @@ npm run bench:generate-doc
 1. **MongoDB Online Archive Automated Offloading**: For Tier 3 (`rollup_1h`), integrate Atlas Online Archive rules to automatically transition data older than 2 years to S3/data lake object storage with federated query access.
 2. **Hash-Partitioned Device Sharding**: Implement device ID hash-based shard keys across MongoDB shard clusters to scale ingestion past 50,000 readings/s without hotspotting individual mongod instances.
 3. **Webhook & Alert Routing Subsystem**: Expand the SSE alert stream into a multi-channel notifier (PagerDuty, Slack, MQTT) with configurable debouncing, hysteresis windows, and alert escalation policies.
-
----
-
-## Resume Bullets
-
-- Built high-velocity IoT time-series engine in TypeScript/Node.js & MongoDB 7.0, designing a dual-lane temporal segregation architecture that reduced time-series bucket creation by 95% (6,834 to 360 buckets) and accelerated late-telemetry backlog ingestion by 17.1x (30,657 ms to 1,786 ms).
-- Implemented zero-client-egress statistical anomaly detection in MongoDB using `$densify`, `$fill`, and `$setWindowFields` to compute rolling 15-minute 3-sigma Z-scores and exponential moving averages over streaming IoT sensors.
-- Architected 3-tier hierarchical downsampling engine with an automated query router that stitched cross-tier seams with zero double counting, cutting documents examined by 5.3x on multi-scale telemetry queries.
-- Normalized heterogeneous multi-vendor sensor payloads via an extensible polymorphic adapter registry with automatic dead-letter queue routing for unsupported firmwares.
