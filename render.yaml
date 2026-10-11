@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: pulsemetric
+    runtime: node
+    plan: free
+    buildCommand: npm install && npm run build
+    startCommand: npm run start
+    envVars:
+      - key: MONGODB_URI
+        sync: false
+      - key: API_KEY
+        sync: false
+      - key: SIMULATOR_ENABLED
+        value: "true"
